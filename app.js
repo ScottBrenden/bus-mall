@@ -56,7 +56,22 @@ function randomImgNum(){
   var ranNum = Math.floor(Math.random() * imgs.length);
   return ranNum;
 }
-console.log(randomImgNum());
 
-var perviousImgs = [99, 99, 99];
+var displayImgs = [99, 99, 99];
 var votes = 0;
+
+function pickImgNums() {
+  for (var i = 0; i < displayImgs.length; i++){
+    displayImgs[i] = randomImgNum();
+  }
+}
+pickImgNums();
+console.log(displayImgs);
+
+function createImgInputs(){
+  for(var i = 0; i < displayImgs.length; i++){
+    var imgNum = displayImgs[i];
+    newImgInputEl(imgs[imgNum].pathTo, 'option' + i);
+  }
+}
+createImgInputs();
