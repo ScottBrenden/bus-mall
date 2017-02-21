@@ -179,7 +179,6 @@ function chartWorkPlease(){
 
   var clickData = [];
   var labelNames = [];
-  // var barColors = ['blue', 'green'];
 
   function pushChartArrs() {
     for (var i = 0; i < imgs.length; i++) {
