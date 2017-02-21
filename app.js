@@ -62,7 +62,17 @@ var votes = 0;
 
 function pickImgNums() {
   for (var i = 0; i < displayImgs.length; i++){
-    displayImgs[i] = randomImgNum();
+    var num = 0;
+    do{
+      var repeatNum = false;
+      num = randomImgNum();
+      for (var j = 0; j < displayImgs.length; j++){
+        if (num === displayImgs[j]) {
+          repeatNum = true;
+        }
+      }
+    }while(repeatNum);
+    displayImgs[i] = num;
   }
 }
 pickImgNums();
@@ -75,3 +85,14 @@ function createImgInputs(){
   }
 }
 createImgInputs();
+
+function voteCast(event){
+  event.preventDefault();
+  event.stopPropogation();
+
+  // console.log(votes);
+  // votes++;
+  createImgInputs();
+}
+console.log(votes);
+votes++;
