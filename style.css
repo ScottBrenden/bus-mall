@@ -27,5 +27,9 @@ legend {
   font-family: sans-serif;
   margin-bottom: -20px;
   font-weight: bold;
+}
 
+canvas {
+  width: 75%;
+  min-width: 400px;
 }

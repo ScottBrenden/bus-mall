@@ -173,3 +173,41 @@ function voteCast(event){
   }
 }
 //charts------------------------------------V
+var ctx = document.getElementById('chart').getContext('2d');
+
+var clickData = [];
+var labelNames = [];
+// var barColors = ['blue', 'green'];
+
+function pushChartArrs() {
+  for (var i = 0; i < imgs.length; i++) {
+    labelNames.push(imgs[i].names);
+    clickData.push(imgs[i].numClicked);
+  }
+}
+pushChartArrs();
+console.log(clickData);
+console.log(labelNames);
+
+var chartData = {
+  type: 'bar',
+  data: {
+    labels: labelNames,
+    datasets: [{
+      label: 'Number of clicks',
+      data: data,
+      backgroundColor: 'black'
+    }],
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero:true
+        }
+      }]
+    }
+  }
+};
+
+var myChart = new Chart(ctx, chartData);
