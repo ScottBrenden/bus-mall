@@ -52,6 +52,7 @@ var wineGlass = new imgObject('wineGlass', 'img\\wine-glass.jpg');
 
 var imgs = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
 
+// random number generator
 function randomImgNum(){
   var ranNum = Math.floor(Math.random() * imgs.length);
   return ranNum;
@@ -60,6 +61,7 @@ function randomImgNum(){
 var displayImgs = [99, 99, 99];
 var votes = 0;
 
+//assign threee new random numbers into the displayImgs array
 function pickImgNums() {
   for (var i = 0; i < displayImgs.length; i++){
     var num = 0;
@@ -75,7 +77,9 @@ function pickImgNums() {
     displayImgs[i] = num;
   }
 }
-pickImgNums();
+
+//Select the three images based on numbers from array
+// pickImgNums();
 console.log(displayImgs);
 
 function createImgInputs(){
@@ -84,24 +88,54 @@ function createImgInputs(){
     newImgInputEl(imgs[imgNum].pathTo, 'option' + (i + 1));
   }
 }
-createImgInputs();
+// createImgInputs();
 
-function voteCast(event){
+//Create a start button
+function startBtn() {
+  newElement('legend', 'class', 'legends', 'start-btn', 'Ready to start?');
+  newElement('button', 'type', 'submit', 'start-btn', 'Start');
+}
+
+if (votes === 0) {
+  startBtn();
+} else if (votes < 26) {
+  pickImgNums();
+  createImgInputs();
+  var newVote1 = document.getElementById('option1');
+  newVote1.addEventListener('click', voteCast);
+
+  var newVote2 = document.getElementById('option2');
+  newVote2.addEventListener('click', voteCast);
+
+  var newVote3 = document.getElementById('option3');
+  newVote3.addEventListener('click', voteCast);
+
+  function voteCast(event){
+    event.preventDefault();
+    event.stopPropagation();
+
+    var target = event.target;
+    console.log(target);
+    // randomImgNum();
+    console.log(displayImgs);
+    console.log(votes);
+    votes++;
+    pickImgNums();
+    createImgInputs();
+  }
+}
+// var newVote = document.getElementById('img-selector');
+// newVote.addEventListener('click', voteCast);
+
+var startSurvey = document.getElementById('start-btn');
+startSurvey.addEventListener('submit', submitStart);
+
+function submitStart(event){
   event.preventDefault();
   event.stopPropagation();
 
-  console.log(votes);
   votes++;
-}
-
-var newVote1 = document.getElementById('option1');
-newVote.addEventListener('click', voteCast);
-
-var newVote2 = document.getElementById('option2');
-newVote.addEventListener('click', voteCast);
-
-var newVote3 = document.getElementById('option3');
-newVote.addEventListener('click', voteCast);
-
+  console.log(votes);
+};
 // console.log(votes);
 // votes++;
