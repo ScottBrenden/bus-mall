@@ -196,7 +196,7 @@ function chartWorkPlease(){
       labels: labelNames,
       datasets: [{
         label: 'Number of clicks',
-        data: data,
+        data: clickData,
         backgroundColor: 'black'
       }],
     },
