@@ -81,18 +81,27 @@ console.log(displayImgs);
 function createImgInputs(){
   for(var i = 0; i < displayImgs.length; i++){
     var imgNum = displayImgs[i];
-    newImgInputEl(imgs[imgNum].pathTo, 'option' + i);
+    newImgInputEl(imgs[imgNum].pathTo, 'option' + (i + 1));
   }
 }
 createImgInputs();
 
 function voteCast(event){
   event.preventDefault();
-  event.stopPropogation();
+  event.stopPropagation();
 
-  // console.log(votes);
-  // votes++;
-  createImgInputs();
+  console.log(votes);
+  votes++;
 }
-console.log(votes);
-votes++;
+
+var newVote1 = document.getElementById('option1');
+newVote.addEventListener('click', voteCast);
+
+var newVote2 = document.getElementById('option2');
+newVote.addEventListener('click', voteCast);
+
+var newVote3 = document.getElementById('option3');
+newVote.addEventListener('click', voteCast);
+
+// console.log(votes);
+// votes++;

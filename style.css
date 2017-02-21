@@ -1,3 +1,8 @@
-.img-options {
-  
+/*.img-options {
+  width: 100px;
+  height: 100px;
+}*/
+
+#option1, #option2, #option3 {
+  width: 300px;
 }
