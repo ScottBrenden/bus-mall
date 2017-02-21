@@ -139,7 +139,7 @@ function voteCast(event){
   var targetSrc = target.getAttribute('src');
   for(var i = 0; i < imgs.length; i++){
     if (imgs[i].pathTo == targetSrc){
-      console.log(imgs[i].numShown);
+      //console.log(imgs[i].numShown);
       imgs[i].numClicked++;
       // console.log(imgs[i].numClicked);
       break;
