@@ -172,3 +172,4 @@ function voteCast(event){
     printNumClicks();
   }
 }
+//charts------------------------------------V
