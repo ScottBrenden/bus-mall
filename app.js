@@ -170,44 +170,47 @@ function voteCast(event){
   } else if (votes == 26){
     calcPercentages();
     printNumClicks();
+    chartWorkPlease();
   }
 }
 //charts------------------------------------V
-var ctx = document.getElementById('chart').getContext('2d');
+function chartWorkPlease(){
+  var ctx = document.getElementById('chart').getContext('2d');
 
-var clickData = [];
-var labelNames = [];
-// var barColors = ['blue', 'green'];
+  var clickData = [];
+  var labelNames = [];
+  // var barColors = ['blue', 'green'];
 
-function pushChartArrs() {
-  for (var i = 0; i < imgs.length; i++) {
-    labelNames.push(imgs[i].names);
-    clickData.push(imgs[i].numClicked);
-  }
-}
-pushChartArrs();
-console.log(clickData);
-console.log(labelNames);
-
-var chartData = {
-  type: 'bar',
-  data: {
-    labels: labelNames,
-    datasets: [{
-      label: 'Number of clicks',
-      data: data,
-      backgroundColor: 'black'
-    }],
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero:true
-        }
-      }]
+  function pushChartArrs() {
+    for (var i = 0; i < imgs.length; i++) {
+      labelNames.push(imgs[i].name);
+      clickData.push(imgs[i].numClicked);
     }
   }
-};
+  pushChartArrs();
+  console.log(clickData);
+  console.log(labelNames);
 
-var myChart = new Chart(ctx, chartData);
+  var chartData = {
+    type: 'bar',
+    data: {
+      labels: labelNames,
+      datasets: [{
+        label: 'Number of clicks',
+        data: data,
+        backgroundColor: 'black'
+      }],
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero:true
+          }
+        }]
+      }
+    }
+  };
+
+  var myChart = new Chart(ctx, chartData);
+}
