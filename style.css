@@ -1,0 +1,11 @@
+/*.img-options {
+  width: 100px;
+  height: 100px;
+}*/
+
+#option1, #option2, #option3 {
+  width: 30%;
+  border: 5px #000;
+  margin: 20px;
+  display: inline-block;
+}
