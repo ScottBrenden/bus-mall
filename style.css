@@ -4,5 +4,8 @@
 }*/
 
 #option1, #option2, #option3 {
-  width: 300px;
+  width: 30%;
+  border: 5px #000;
+  margin: 20px;
+  display: inline-block;
 }

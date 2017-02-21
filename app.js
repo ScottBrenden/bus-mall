@@ -9,12 +9,14 @@ function newElement(elType, elAttribute, elAttributeName, elParentId, elText){
 }
 
 function newImgInputEl(elSrc, elId){
+  var parentEl = document.getElementById('img-selector');
+  var currentEl = document.getElementById(elId);
+  parentEl.removeChild(currentEl);
   var el = document.createElement('input');
   el.setAttribute('type', 'image');
   el.setAttribute('src', elSrc);
   el.setAttribute('id', elId);
   el.setAttribute('class', 'img-option');
-  var parentEl = document.getElementById('img-selector');
   parentEl.appendChild(el);
 }
 
@@ -79,7 +81,6 @@ function pickImgNums() {
 }
 
 //Select the three images based on numbers from array
-// pickImgNums();
 console.log(displayImgs);
 
 function createImgInputs(){
@@ -88,54 +89,66 @@ function createImgInputs(){
     newImgInputEl(imgs[imgNum].pathTo, 'option' + (i + 1));
   }
 }
-// createImgInputs();
 
+pickImgNums();
+createImgInputs();
 //Create a start button
-function startBtn() {
-  newElement('legend', 'class', 'legends', 'start-btn', 'Ready to start?');
-  newElement('button', 'type', 'submit', 'start-btn', 'Start');
-}
+// function startBtn() {
+//   newElement('legend', 'class', 'legends', 'start-btn', 'Ready to start?');
+//   newElement('button', 'type', 'submit', 'start-btn', 'Start');
+// }
 
-if (votes === 0) {
-  startBtn();
-} else if (votes < 26) {
-  pickImgNums();
-  createImgInputs();
-  var newVote1 = document.getElementById('option1');
-  newVote1.addEventListener('click', voteCast);
+// var startSurvey = document.getElementById('start-btn');
+// startSurvey.addEventListener('submit', submitStart);
+//
+// function submitStart(event){
+//   event.preventDefault();
+//   event.stopPropagation();
+//
+//   votes++;
+//   console.log(votes);
+//   pickImgNums();
+//   createImgInputs();
+// };
+// console.log(votes);
+// votes++;
+//---------------------------------------------|
 
-  var newVote2 = document.getElementById('option2');
-  newVote2.addEventListener('click', voteCast);
-
-  var newVote3 = document.getElementById('option3');
-  newVote3.addEventListener('click', voteCast);
-
-  function voteCast(event){
-    event.preventDefault();
-    event.stopPropagation();
-
-    var target = event.target;
-    console.log(target);
-    // randomImgNum();
-    console.log(displayImgs);
-    console.log(votes);
-    votes++;
-    pickImgNums();
-    createImgInputs();
-  }
-}
 // var newVote = document.getElementById('img-selector');
 // newVote.addEventListener('click', voteCast);
+// if (votes === 0) {
+//   startBtn();
+// } else if (votes < 26) {
+  // pickImgNums();
+  // createImgInputs();
+var newVote1 = document.getElementById('option1');
+newVote1.addEventListener('click', voteCast);
 
-var startSurvey = document.getElementById('start-btn');
-startSurvey.addEventListener('submit', submitStart);
+var newVote2 = document.getElementById('option2');
+newVote2.addEventListener('click', voteCast);
 
-function submitStart(event){
+var newVote3 = document.getElementById('option3');
+newVote3.addEventListener('click', voteCast);
+// }
+function voteCast(event){
   event.preventDefault();
   event.stopPropagation();
 
-  votes++;
+  var target = event.target;
+  var targetSrc = target.getAttribute('src');
+  for(var i = 0; i < imgs.length; i++){
+    if (imgs[i].pathTo == targetSrc){
+      // console.log(imgs[i].numClicked);
+      imgs[i].numClicked++;
+      // console.log(imgs[i].numClicked);
+      break;
+    }
+  }
+  console.log(targetSrc);
+  // randomImgNum();
+  console.log(displayImgs);
   console.log(votes);
-};
-// console.log(votes);
-// votes++;
+  votes++;
+  pickImgNums();
+  createImgInputs();
+}
