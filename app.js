@@ -170,46 +170,91 @@ function voteCast(event){
   } else if (votes == 26){
     calcPercentages();
     printNumClicks();
+    newElement('canvas', 'id', 'click-chart', 'canvases', '');
+    newElement('canvas', 'id', 'percent-chart', 'canvases', '');
     chartWorkPlease();
   }
 }
 //charts------------------------------------V
 function chartWorkPlease(){
-  var ctx = document.getElementById('chart').getContext('2d');
+  var ctx = document.getElementById('click-chart').getContext('2d');
+  var pct = document.getElementById('percent-chart').getContext('2d');
 
   var clickData = [];
   var labelNames = [];
+  var percentageData = [];
+  var chartColors = [];
 
   function pushChartArrs() {
     for (var i = 0; i < imgs.length; i++) {
       labelNames.push(imgs[i].name);
       clickData.push(imgs[i].numClicked);
+      percentageData.push(imgs[i].percentage);
     }
   }
   pushChartArrs();
-  console.log(clickData);
-  console.log(labelNames);
+  // console.log(clickData);
+  // console.log(labelNames);
 
-  var chartData = {
+//----------Click chart---------------------V
+  var clickChart = {
     type: 'bar',
     data: {
       labels: labelNames,
       datasets: [{
         label: 'Number of clicks',
         data: clickData,
-        backgroundColor: 'black'
+        backgroundColor: 'white'
       }],
     },
     options: {
+      legend: {labels:{fontColor:'#fff'}},
       scales: {
         yAxes: [{
           ticks: {
+            fontColor:'#fff',
             beginAtZero:true
+          }
+        }],
+        xAxes:[{
+          ticks: {
+            fontColor:'#fff'
           }
         }]
       }
     }
   };
+//------------------------------------------A
 
-  var myChart = new Chart(ctx, chartData);
+//-------% chart---------------------V
+  var percChart = {
+    type: 'polarArea',
+    data: {
+      labels: labelNames,
+      datasets: [{
+        label: 'Percentage of Clicks',
+        data: percentageData,
+        backgroundColor: 'white'
+      }],
+    },
+    options: {
+      legend: {labels:{fontColor:'#fff'}},
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor:'#fff',
+            beginAtZero:true
+          }
+        }],
+        xAxes:[{
+          ticks: {
+            fontColor:'#fff'
+          }
+        }]
+      }
+    }
+  };
+//-------------------------------------------A
+  var myChart = new Chart(ctx, clickChart);
+  var myChart = new Chart(pct, percChart);
 }
