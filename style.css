@@ -17,7 +17,7 @@
 body {
   background: linear-gradient(#00757A, #03172E);
   background-repeat: no-repeat;
-  min-height: 800px;
+  min-height: 1000px;
 }
 
 ul {
@@ -30,6 +30,17 @@ h1 {
   font-weight: 900;
   text-align: center;
   color: #fff;
+}
+
+a{
+  height: 30px;
+  width: 60px;
+  text-decoration: none;
+  color: #03172E;
+  background: #fff;
+  border-radius: 3px;
+  padding: 10px 15px;
+  margin: 50px auto 10px auto;
 }
 
 legend {
