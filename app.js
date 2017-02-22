@@ -127,20 +127,10 @@ createImgInputs();
 //print out numClicked values--------------------V
 function printNumClicks() {
   for (var i = 0; i < imgs.length; i++) {
-    // console.log(imgs[i].name + ' was clicked ' + imgs[i].numClicked + ' times.');
     newElement('li', 'class', 'click-li', 'clicks-ul', imgs[i].name + ' was clicked ' + imgs[i].numClicked + ' times.');
   }
 }
 //-----------------------------------------------A
-
-  // var newVote1 = document.getElementById('option1');
-  // newVote1.addEventListener('click', voteCast);
-  //
-  // var newVote2 = document.getElementById('option2');
-  // newVote2.addEventListener('click', voteCast);
-  //
-  // var newVote3 = document.getElementById('option3');
-  // newVote3.addEventListener('click', voteCast);
 
 var newVote = document.getElementById('img-selector');
 newVote.addEventListener('click', voteCast);
@@ -202,13 +192,13 @@ function chartWorkPlease(){
     data: {
       labels: labelNames,
       datasets: [{
-        label: 'Number of clicks',
+        label: 'Number of Clicks',
         data: clickData,
         backgroundColor: 'white'
       }],
     },
     options: {
-      legend: {labels:{fontColor:'#fff'}},
+      legend: {labels:{fontColor:'#fff', fontSize: 18}},
       scales: {
         yAxes: [{
           ticks: {
