@@ -29,6 +29,7 @@ function imgObject(name, pathTo) {
 
 imgObject.prototype.percentClick = function(){
   var percentage = 100 * (this.numClicked / this.numShown);
+  this.percentage = percentage;
 };
 
 var bag = new imgObject('bag', 'img\\bag.jpg');
@@ -53,6 +54,14 @@ var waterCan = new imgObject('waterCan', 'img\\water-can.jpg');
 var wineGlass = new imgObject('wineGlass', 'img\\wine-glass.jpg');
 
 var imgs = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
+
+//Intialize percentage methods--------------------V
+function calcPercentages() {
+  for (var i = 0; i < imgs.length; i++) {
+    imgs[i].percentClick();
+  }
+}
+//-------------------------------------------------A
 
 // random number generator
 function randomImgNum(){
@@ -115,22 +124,27 @@ createImgInputs();
 // votes++;
 //---------------------------------------------|
 
-// var newVote = document.getElementById('img-selector');
-// newVote.addEventListener('click', voteCast);
-// if (votes === 0) {
-//   startBtn();
-// } else if (votes < 26) {
-  // pickImgNums();
-  // createImgInputs();
-var newVote1 = document.getElementById('option1');
-newVote1.addEventListener('click', voteCast);
+//print out numClicked values--------------------V
+function printNumClicks() {
+  for (var i = 0; i < imgs.length; i++) {
+    // console.log(imgs[i].name + ' was clicked ' + imgs[i].numClicked + ' times.');
+    newElement('li', 'class', 'click-li', 'clicks-ul', imgs[i].name + ' was clicked ' + imgs[i].numClicked + ' times.');
+  }
+}
+//-----------------------------------------------A
 
-var newVote2 = document.getElementById('option2');
-newVote2.addEventListener('click', voteCast);
+  // var newVote1 = document.getElementById('option1');
+  // newVote1.addEventListener('click', voteCast);
+  //
+  // var newVote2 = document.getElementById('option2');
+  // newVote2.addEventListener('click', voteCast);
+  //
+  // var newVote3 = document.getElementById('option3');
+  // newVote3.addEventListener('click', voteCast);
 
-var newVote3 = document.getElementById('option3');
-newVote3.addEventListener('click', voteCast);
-// }
+var newVote = document.getElementById('img-selector');
+newVote.addEventListener('click', voteCast);
+
 function voteCast(event){
   event.preventDefault();
   event.stopPropagation();
@@ -141,15 +155,106 @@ function voteCast(event){
     if (imgs[i].pathTo == targetSrc){
       //console.log(imgs[i].numShown);
       imgs[i].numClicked++;
-      // console.log(imgs[i].numClicked);
+      //console.log(imgs[i].numClicked);
       break;
     }
   }
-  console.log(targetSrc);
+  //console.log(targetSrc);
   // randomImgNum();
   console.log(displayImgs);
   console.log(votes);
   votes++;
-  pickImgNums();
-  createImgInputs();
+  if (votes < 26) {
+    pickImgNums();
+    createImgInputs();
+  } else if (votes == 26){
+    calcPercentages();
+    printNumClicks();
+    newElement('canvas', 'id', 'click-chart', 'canvases', '');
+    newElement('canvas', 'id', 'percent-chart', 'canvases', '');
+    chartWorkPlease();
+  }
+}
+//charts------------------------------------V
+function chartWorkPlease(){
+  var ctx = document.getElementById('click-chart').getContext('2d');
+  var pct = document.getElementById('percent-chart').getContext('2d');
+
+  var clickData = [];
+  var labelNames = [];
+  var percentageData = [];
+  var chartColors = [];
+
+  function pushChartArrs() {
+    for (var i = 0; i < imgs.length; i++) {
+      labelNames.push(imgs[i].name);
+      clickData.push(imgs[i].numClicked);
+      percentageData.push(imgs[i].percentage);
+    }
+  }
+  pushChartArrs();
+  // console.log(clickData);
+  // console.log(labelNames);
+
+//----------Click chart---------------------V
+  var clickChart = {
+    type: 'bar',
+    data: {
+      labels: labelNames,
+      datasets: [{
+        label: 'Number of clicks',
+        data: clickData,
+        backgroundColor: 'white'
+      }],
+    },
+    options: {
+      legend: {labels:{fontColor:'#fff'}},
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor:'#fff',
+            beginAtZero:true
+          }
+        }],
+        xAxes:[{
+          ticks: {
+            fontColor:'#fff'
+          }
+        }]
+      }
+    }
+  };
+//------------------------------------------A
+
+//-------% chart---------------------V
+  var percChart = {
+    type: 'polarArea',
+    data: {
+      labels: labelNames,
+      datasets: [{
+        label: 'Percentage of Clicks',
+        data: percentageData,
+        backgroundColor: 'white'
+      }],
+    },
+    options: {
+      legend: {labels:{fontColor:'#fff'}},
+      scales: {
+        yAxes: [{
+          ticks: {
+            fontColor:'#fff',
+            beginAtZero:true
+          }
+        }],
+        xAxes:[{
+          ticks: {
+            fontColor:'#fff'
+          }
+        }]
+      }
+    }
+  };
+//-------------------------------------------A
+  var myChart = new Chart(ctx, clickChart);
+  var myChart = new Chart(pct, percChart);
 }
