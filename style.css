@@ -43,6 +43,16 @@ a{
   margin: 50px auto 10px auto;
 }
 
+a:hover {
+  background: #cfc;
+}
+
+a:active {
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
 legend {
   color: #ddd;
   font-size: 30px;
