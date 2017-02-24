@@ -131,8 +131,8 @@ function printNumClicks() {
   }
 }
 //-----------------------------------------------A
-function toLocalStorage(products){
-  localStorage.products = JSON.stringify(products);
+function toLocalStorage(imgs){
+  localStorage.imgs = JSON.stringify(imgs);
   console.log('Saved to local storage');
 }
 
